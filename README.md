@@ -39,31 +39,12 @@ export default tseslint.config([
 ])
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+A rendre : 
+- Dossier pour le 10 juillet
+- PowerPoint pour le 11 juillet
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+TRELLO :
+https://trello.com/invite/b/686b72f619dd7fab2b3d60bd/ATTI1872ad35a659756ee5c2aac44746ebbb84680EE9/fouille-de-donneees
 
-export default tseslint.config([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+Diagramme de Gantt : 
+https://lucid.app/lucidspark/0770d8f2-bdf9-40e2-9361-49f4e6b12056/edit?invitationId=inv_9ad517d6-33f9-4883-8e71-3f721dd1e777&page=uDe-dIt-NWfS#
