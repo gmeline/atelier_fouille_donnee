@@ -4,11 +4,11 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
+    "start": "node dist/index.js && vite",
+    "dev": "vite",
     "build": "tsc -b && vite build && tsc",
     "lint": "eslint .",
-    "preview": "vite preview",
-    "dev": "node --watch -- src/index.ts",
-    "start": "node dist/index.js"
+    "preview": "vite preview"
   },
   "dependencies": {
     "react": "^19.1.0",

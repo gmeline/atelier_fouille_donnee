@@ -1,4 +1,4 @@
-function round(value: number) {
+export function round(value: number) {
     return Math.round(value * 1000) / 1000;
 }
 
@@ -24,7 +24,7 @@ class ActivationFunction {
     }
 }
 
-const sigmoid = new ActivationFunction('Sigmoid', (value: number) => 1 / (1 + Math.exp(-value)));
+export const sigmoid = new ActivationFunction('Sigmoid', (value: number) => 1 / (1 + Math.exp(-value)));
 
 class Input {
     value: number;
@@ -58,38 +58,55 @@ class Neuron {
     }
 }
 
-const NB_NEURON_PER_LAYER = 2;
+const NB_NEURON_PER_LAYER = 20;
 
-function getNeuralNetwork(values: number[], desiree: number, bias: number, activationFunction: ActivationFunction) {
-    // Construction de la couche cachée
+export function getNeuralNetwork(values: number[], desiree: number[], bias: number, activationFunction: ActivationFunction) {
     const neurons: Neuron[] = [];
+
     for (let i = 0; i < NB_NEURON_PER_LAYER; i++) {
-        const inputs = values.map((value) => new Input(value, getRdmWeight()));
-        neurons.push(new Neuron(getRdmWeight(), inputs, activationFunction));
+        const inputs = values.map((value) => {
+            return new Input(value, getRdmWeight())
+        });
+        neurons.push(new Neuron(getRdmWeight(), inputs, activationFunction))
     }
 
-    // Ajout de tous les poids
-    const inputs = neurons.map((neuron) => {
-        neuron.calculateValue(bias);
-        return new Input(neuron.output, getRdmWeight(), neuron);
-    });
-    const outputNeuron = new Neuron(getRdmWeight(), inputs, activationFunction);
+    neurons.forEach((neuron) => neuron.calculateValue(bias))
 
-    let iterIdx = 0;
-    let precValue = outputNeuron.output;
+    const outptNeurons: Neuron[] = [];
+    for (let i = 0; i < 10; i++) {
+        const inputs = neurons.map((neuron) => {
+            return new Input(neuron.output, getRdmWeight(), neuron)
+        })
+        outptNeurons.push(new Neuron(getRdmWeight(), inputs, activationFunction))
+    }
+
     let isLooping = false;
-    while (outputNeuron.output !== desiree && !isLooping) {
-        console.log(`Itération ${iterIdx}`)
-        const error = iter(desiree, bias, outputNeuron);
-        if (error === precValue) {
+    let itedx = 0;
+
+    while (!isLooping && itedx < 1000) {
+        let totalError= 0;
+        for (let i = 0; i < 10; i++) {
+            const target = desiree[i];
+            const error = iter(target, bias, outptNeurons[i]);
+            totalError += error;
+        }
+
+        if(totalError < 0.01){
             isLooping = true;
         }
-        precValue = error;
-        iterIdx++;
+
+        itedx++
     }
-    console.log('Modèle terminé: ', JSON.stringify(neurons));
-    if (isLooping) {
-        console.log('Impossible de trouver une erreur de zéro. Erreur finale: ', precValue);
+
+    const prediction = outptNeurons.map((neuron) => {
+        neuron.calculateValue(bias)
+        return neuron.output;
+    })
+
+    const predictedDigit = prediction.indexOf(Math.max(...prediction))
+    console.log(`Chiffre prédit : ${predictedDigit}`)
+    if(!isLooping){
+        console.warn("Le reseau va pas bien")
     }
 }
 
@@ -118,5 +135,6 @@ function iter(desiree: number, bias: number, outputNeuron: Neuron): number {
     outputNeuron.biasWeight = calculateNewWeight(outputNeuron.biasWeight, bias, error, outputNeuron.output);
     return error;
 }
-
-getNeuralNetwork([0.8, 0.2], 0.4, 1, sigmoid);
+const label = 3
+export const oneHot = Array.from({ length: 10 }, (_, i) => (i === label ? 1 : 0))
+// getNeuralNetwork([0.8, 0.2], oneHot, 1, sigmoid);
