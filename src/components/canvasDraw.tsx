@@ -28,7 +28,7 @@ const CanvasDraw: React.FC<CanvasDrawProps> = ({ onSendImage }) => {
     const rect = canvas.getBoundingClientRect();
     ctx.lineTo(e.clientX - rect.left, e.clientY - rect.top);
     ctx.strokeStyle = "black";
-    ctx.lineWidth = 10;
+    ctx.lineWidth = 5;
     ctx.lineCap = "round";
     ctx.stroke();
   };
@@ -52,13 +52,13 @@ const CanvasDraw: React.FC<CanvasDrawProps> = ({ onSendImage }) => {
   };
 
   return (
-    <div className="border rounded-lg p-4 bg-white shadow-md space-y-2">
-      <h2 className="text-xl font-semibold">Dessine un chiffre :</h2>
+    <div className="w-full border border-gray-200 rounded-lg p-4 bg-white shadow-xs space-y-2">
+      <h2 className="text-xl font-bold">Dessine un chiffre</h2>
       <canvas
         ref={canvasRef}
-        width={200}
+        width={400}
         height={200}
-        className="border bg-white cursor-crosshair"
+        className="border-2 border-gray-200 rounded-md border-dotted bg-white cursor-crosshair"
         onMouseDown={startDrawing}
         onMouseMove={draw}
         onMouseUp={stopDrawing}
@@ -67,13 +67,13 @@ const CanvasDraw: React.FC<CanvasDrawProps> = ({ onSendImage }) => {
       <div className="space-x-2">
         <button
           onClick={handleSend}
-          className="bg-blue-600 text-white px-4 py-1 rounded hover:bg-blue-700"
+          className="cursor-pointer bg-blue-600 text-white px-4 py-1 rounded hover:bg-blue-700"
         >
           Envoyer
         </button>
         <button
           onClick={clearCanvas}
-          className="bg-gray-300 text-black px-4 py-1 rounded hover:bg-gray-400"
+          className="cursor-pointer border border-gray-200 bg-gray-50 text-black px-4 py-1 rounded hover:bg-gray-100"
         >
           Effacer
         </button>

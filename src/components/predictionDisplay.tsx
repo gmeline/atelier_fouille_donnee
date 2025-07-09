@@ -10,7 +10,7 @@ const PredictionDisplay: React.FC<PredictionDisplayProps> = ({
   imageData,
 }) => {
   return (
-    <div className="border rounded-lg p-4 bg-white shadow-md mt-4 min-h-[80px]">
+    <div className="border border-gray-200 rounded-lg p-4 bg-white shadow-xs mt-4 min-h-[80px]">
       <h2 className="text-xl font-semibold mb-2">Prédiction :</h2>
       {prediction ? (
         <p className="text-2xl font-bold">{prediction}</p>
@@ -25,7 +25,7 @@ const PredictionDisplay: React.FC<PredictionDisplayProps> = ({
         <img
           src={imageData}
           alt="Chiffre dessiné ou uploadé"
-          className="mt-4 border rounded max-w-full h-auto"
+          className="mt-4 border border-gray-200 rounded max-w-full h-auto"
         />
       )}
     </div>

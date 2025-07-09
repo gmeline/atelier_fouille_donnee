@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import  { useState } from "react";
 import CanvasDraw from "./components/canvasDraw";
 import FileUpload from "./components/fileUpload";
 import PredictionDisplay from "./components/predictionDisplay";
@@ -18,15 +18,14 @@ function App() {
   return (
     <div className="min-h-screen bg-gray-100 p-6 flex flex-col space-y-6">
       {/* Ligne du haut : Upload gauche, Canvas droite */}
-      <div className="flex justify-between">
+      <div className="flex justify-between space-x-4">
+          {/* Canvas */}
+          <div className="w-1/2 flex justify-end">
+              <CanvasDraw onSendImage={handleImageSend} />
+          </div>
         {/* Upload */}
-        <div className="w-1/2 pr-4">
+        <div className="w-1/2">
           <FileUpload onSendImage={handleImageSend} />
-        </div>
-
-        {/* Canvas */}
-        <div className="w-1/2 pl-4 flex justify-end">
-          <CanvasDraw onSendImage={handleImageSend} />
         </div>
       </div>
 
@@ -35,7 +34,7 @@ function App() {
         <PredictionDisplay prediction={prediction} imageData={imageData} />
       </div>
     </div>
-  );
+  )
 }
 
 export default App;
