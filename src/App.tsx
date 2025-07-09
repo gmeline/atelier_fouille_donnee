@@ -2,6 +2,7 @@ import  { useState } from "react";
 import CanvasDraw from "./components/canvasDraw";
 import FileUpload from "./components/fileUpload";
 import PredictionDisplay from "./components/predictionDisplay";
+import {ArrowRight} from "lucide-react";
 
 function App() {
   const [prediction, setPrediction] = useState<string | null>(null);
@@ -28,6 +29,11 @@ function App() {
           <FileUpload onSendImage={handleImageSend} />
         </div>
       </div>
+
+        <button className='bg-blue-700 text-white py-2 px-4 rounded-md w-fit mx-auto cursor-pointer'>
+            Soumettre
+            <ArrowRight size={16} className='mb-0.5 inline ml-2' />
+        </button>
 
       {/* Résultat en bas */}
       <div className="w-full">
