@@ -1,35 +1,41 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import React, { useState } from "react";
+import CanvasDraw from "./components/canvasDraw";
+import FileUpload from "./components/fileUpload";
+import PredictionDisplay from "./components/predictionDisplay";
 
 function App() {
-  const [count, setCount] = useState(0)
+  const [prediction, setPrediction] = useState<string | null>(null);
+  const [imageData, setImageData] = useState<string | null>(null);
+
+  const handleImageSend = (base64: string) => {
+    setImageData(base64);
+    setPrediction(null); // Remise à zéro de la prédiction quand on change d'image
+
+    // Ici tu peux appeler ton backend ou la logique ML réelle,
+    // pour l'instant on ne fait rien (pas de prédiction forcée)
+  };
 
   return (
-    <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
+    <div className="min-h-screen bg-gray-100 p-6 flex flex-col space-y-6">
+      {/* Ligne du haut : Upload gauche, Canvas droite */}
+      <div className="flex justify-between">
+        {/* Upload */}
+        <div className="w-1/2 pr-4">
+          <FileUpload onSendImage={handleImageSend} />
+        </div>
+
+        {/* Canvas */}
+        <div className="w-1/2 pl-4 flex justify-end">
+          <CanvasDraw onSendImage={handleImageSend} />
+        </div>
       </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
+
+      {/* Résultat en bas */}
+      <div className="w-full">
+        <PredictionDisplay prediction={prediction} imageData={imageData} />
       </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
+    </div>
+  );
 }
 
-export default App
+export default App;
