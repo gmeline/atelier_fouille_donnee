@@ -1,8 +1,8 @@
 import React from "react";
 
 interface PredictionDisplayProps {
-  prediction: string | null;
-  imageData: string | null;
+  prediction?: number;
+  imageData?: string;
 }
 
 const PredictionDisplay: React.FC<PredictionDisplayProps> = ({
@@ -20,7 +20,6 @@ const PredictionDisplay: React.FC<PredictionDisplayProps> = ({
         </p>
       )}
 
-      {/* Affiche l'image dessinée ou uploadée */}
       {imageData && (
         <img
           src={imageData}
